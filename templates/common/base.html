@@ -1,0 +1,108 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>{% block title %}Moviepy{% endblock %}</title>
+
+  <!-- load global stylesheets-->
+  {% include "common/global_css.html" %}
+
+  
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+
+<!-- navbar code inserted inside the block -->
+{% block navbar %}
+  <section class="w3l-bootstrap-header">
+    <nav class="navbar navbar-expand-lg navbar-light py-lg-3 py-2">
+      <div class="container">
+        <a class="navbar-brand" href="/"> Our Website</a>
+        <!-- if logo is image enable this  -->  
+        <!-- <a class="navbar-brand" href="#index.html">
+            <img src="{% static 'home/images/logo.jpg' %}" alt="Your logo" title="Your logo" style="height:35px;" />
+        </a> -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon fa fa-bars"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link {% if page == 'index' %}active{% endif %}" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if page == 'service' %}active{% endif %}" href="/services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if page == 'about' %}active{% endif %}" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if page == 'contact' %}active{% endif %}" href="/contact">Contact</a>
+            </li>
+            <li class="nav-item {% if user.username %}hide{%else%}show{% endif %}">
+              <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+            </li>
+            <li class="nav-item {% if user.username %}show{%else%}hide{% endif %}">
+              <a class="nav-link" href="{% url 'account_logout' %}">LogOut</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="fh5co-sub-ddown sf-with-ul">Dropdown</a>
+               <ul class="fh5co-sub-menu" style="display: none;">
+                 <li><a href="left-sidebar.html">Web Development</a></li>
+                 <li><a href="right-sidebar.html">Branding &amp; Identity</a></li>
+                <li>
+                  <a href="#" class="fh5co-sub-ddown sf-with-ul">Free HTML5</a>
+                  <ul class="fh5co-sub-menu" style="display: none;">
+                    <li><a href="http://freehtml5.co/preview/?item=build-free-html5-bootstrap-template" target="_blank">Build</a></li>
+                    <li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Work</a></li>
+                    <li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">Light</a></li>
+                    <li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">Relic</a></li>
+                    <li><a href="http://freehtml5.co/preview/?item=display-free-html5-template-using-bootstrap" target="_blank">Display</a></li>
+                    <li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">UI Animation</a></li>
+                <li><a href="#">Copywriting</a></li>
+                <li><a href="#">Photography</a></li> 
+              </ul>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+  </section>
+{% endblock %}
+<!-- navbar code insertion end -->
+
+<!-- content code inserted inside the block -->
+{% block content %}
+{% endblock %}
+<!-- content code insertion end -->
+
+</body>
+
+<!-- load global js-->
+{% include "common/global_js.html" %}
+
+<!-- page level scripts -->
+{% block page_level_scripts %}
+  <script>
+    $(function () {
+      $('.navbar-toggler').click(function () {
+        $('body').toggleClass('noscroll');
+      })
+    });
+  </script>
+{% endblock %}
+
+</html>

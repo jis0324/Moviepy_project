@@ -1,0 +1,110 @@
+{% extends "common/base.html" %}
+
+{% load static %}
+
+{% block title %}HOME{% endblock %}
+
+{% block content %}
+
+  <section class="w3l-service-breadcrum">
+    <div class="breadcrum-bg">
+      <div class="container py-5">
+        <p><a href="index.html">Home</a> &nbsp; / &nbsp; Uploads &nbsp; / &nbsp; {{ upload_type }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="w3l-pricing-7" id="upload_section">
+    <div class="w3l-pricing-7_sur py-5">
+      <div class="container py-md-3">
+        <div class="heading text-center mx-auto">
+          <h3 class="head">Upload audio/video files</h3>
+          <p class="my-3 head"></p>
+        </div>
+        <div class="row w3l-pricing-7-gd-top pt-3 mt-5">
+          <div class="col-lg-8 col-md-6 w3l-pricing-7-gd-left">
+            <div class="w3l-pricing-7-bottom-bottom">
+              <p class="title-sub mt-4 text-left" style="margin: 0; font-size: bold;">SELECT FROM YOUR COMPUTER:</p>
+            </div>
+            <form id="upload_form" action="upload.php" method="POST" style="margin-top: 1.5rem;">
+              <input type="file" multiple>
+              <p>Drag your Video/Audio here or click in this area.</p>
+              <!-- <button type="submit">Upload</button> -->
+            </form>
+          </div>
+          <div class="col-lg-4 col-md-6 mt-lg-0 mt-4 w3l-pricing-7-gd-left">
+            <div class="pric-7-2">
+              <div class="w3l-pricing-7-bottom-bottom">
+                <p class="title-sub mt-4 text-left" style="margin: 0; font-size: bold;">OR SELECT FROM :</p>
+              </div>
+              <div class="buy-button text-center mt-4">
+                <button href="contact.html" class="btn btn-info btn-custom">
+                  <div class="anim"></div><span>YOUTUBE</span>
+                </button>
+              </div>
+              <div class="buy-button text-center mt-4">
+                <button href="contact.html" class="btn btn-info btn-custom">
+                  <div class="anim"></div><span>GOOGLE DRIVER</span>
+                </button>
+              </div>
+              <div class="buy-button text-center mt-4">
+                <button href="contact.html" class="btn btn-info btn-custom">
+                  <div class="anim"></div><span>DROPBOX</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- grids block 5 -->
+  <section class="w3l-footer-29-main" id="footer">
+    <div class="footer-29 text-center">
+      <div class="container">
+
+        <div class="main-social-footer-29">
+
+          <a href="#facebook" class="facebook"><span class="fa fa-facebook"></span></a>
+          <a href="#twitter" class="twitter"><span class="fa fa-twitter"></span></a>
+          <a href="#instagram" class="instagram"><span class="fa fa-instagram"></span></a>
+          <a href="#google-plus" class="google-plus"><span class="fa fa-google-plus"></span></a>
+          <a href="#linkedin" class="linkedin"><span class="fa fa-linkedin"></span></a>
+        </div>
+        <div class="bottom-copies text-center">
+          <p class="copy-footer-29">© 2020 Our Website. All rights reserved | Designed by <a
+              href="https://MOVIEPY.com">MOVIEPY</a></p>
+
+        </div>
+      </div>
+    </div>
+    <!-- move top -->
+    <button onclick="topFunction()" id="movetop" title="Go to top">
+      <span class="fa fa-angle-up"></span>
+    </button>
+    <script>
+      // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function () {
+        scrollFunction()
+      };
+
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          document.getElementById("movetop").style.display = "block";
+        } else {
+          document.getElementById("movetop").style.display = "none";
+        }
+      }
+
+      // When the user clicks on the button, scroll to the top of the document
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+    </script>
+    <!-- /move top -->
+  </section>
+
+{% endblock %}
+
+<script src="{% static 'home/js/upload.js' %}"></script>
