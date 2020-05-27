@@ -1,31 +1,31 @@
-
 {% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<title>{% block title %}Moviepy{% endblock %}</title>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>{% block title %}Moviepy{% endblock %}</title>
 
   <!-- load global stylesheets-->
   {% include "common/global_css.html" %}
 
-  
+
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
 
-<!-- navbar code inserted inside the block -->
-{% block navbar %}
+  <!-- navbar code inserted inside the block -->
+  {% block navbar %}
   <section class="w3l-bootstrap-header">
     <nav class="navbar navbar-expand-lg navbar-light py-lg-3 py-2">
       <div class="container">
         <a class="navbar-brand" href="/"> Our Website</a>
-        <!-- if logo is image enable this  -->  
+        <!-- if logo is image enable this  -->
         <!-- <a class="navbar-brand" href="#index.html">
             <img src="{% static 'home/images/logo.jpg' %}" alt="Your logo" title="Your logo" style="height:35px;" />
         </a> -->
@@ -48,46 +48,66 @@
             <li class="nav-item">
               <a class="nav-link {% if page == 'contact' %}active{% endif %}" href="/contact">Contact</a>
             </li>
-            <li class="nav-item {% if user.username %}hide{%else%}show{% endif %}">
-              <a class="nav-link" href="{% url 'account_login' %}">Login</a>
-            </li>
-            <li class="nav-item {% if user.username %}show{%else%}hide{% endif %}">
-              <a class="nav-link" href="{% url 'account_logout' %}">LogOut</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="fh5co-sub-ddown sf-with-ul">Dropdown</a>
-               <ul class="fh5co-sub-menu" style="display: none;">
-                 <li><a href="left-sidebar.html">Web Development</a></li>
-                 <li><a href="right-sidebar.html">Branding &amp; Identity</a></li>
-                <li>
-                  <a href="#" class="fh5co-sub-ddown sf-with-ul">Free HTML5</a>
-                  <ul class="fh5co-sub-menu" style="display: none;">
-                    <li><a href="http://freehtml5.co/preview/?item=build-free-html5-bootstrap-template" target="_blank">Build</a></li>
-                    <li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Work</a></li>
-                    <li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">Light</a></li>
-                    <li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">Relic</a></li>
-                    <li><a href="http://freehtml5.co/preview/?item=display-free-html5-template-using-bootstrap" target="_blank">Display</a></li>
-                    <li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">UI Animation</a></li>
-                <li><a href="#">Copywriting</a></li>
-                <li><a href="#">Photography</a></li> 
-              </ul>
-            </li>
+            <style>
+              .dropdown {
+                position: relative;
+                display: inline-block;
+              }
+
+              .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                z-index: 1;
+              }
+
+              .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+              }
+
+              .dropdown-content a:hover {
+                background-color: #d8d0d0
+              }
+
+              .dropdown:hover .dropdown-content {
+                display: block;
+              }
+
+            </style>
+            {% if user.is_authenticated %}
+              <li class="nav-item dropdown {% if not user.is_authenticated %}hide{% endif %}">
+                <a class="nav-link" href="#"><i class="fa fa-user-circle-o"></i>&nbsp;&nbsp;{{ user.get_username }}&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                <a href="#" class="d-flex justify-content-between">Profile<i class="fa fa-user "></i></a>
+                <a href="#" class="d-flex justify-content-between">Your Repository<i class="fa fa-home "></i></a>
+                <a href="{% url 'account_logout' %}" class="d-flex justify-content-between">LogOut <i class="fa fa-sign-out "></i></a>
+              </li>
+            {% else %}
+              <li class="nav-item ">
+                <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+              </li>
+            {% endif %}
+              
+            
+            
           </ul>
 
         </div>
       </div>
     </nav>
   </section>
-{% endblock %}
-<!-- navbar code insertion end -->
+  {% endblock %}
+  <!-- navbar code insertion end -->
 
-<!-- content code inserted inside the block -->
-{% block content %}
-{% endblock %}
-<!-- content code insertion end -->
+  <!-- content code inserted inside the block -->
+  {% block content %}
+  {% endblock %}
+  <!-- content code insertion end -->
 
 </body>
 
@@ -96,13 +116,13 @@
 
 <!-- page level scripts -->
 {% block page_level_scripts %}
-  <script>
-    $(function () {
-      $('.navbar-toggler').click(function () {
-        $('body').toggleClass('noscroll');
-      })
-    });
-  </script>
+<script>
+  $(function () {
+    $('.navbar-toggler').click(function () {
+      $('body').toggleClass('noscroll');
+    })
+  });
+</script>
 {% endblock %}
 
 </html>

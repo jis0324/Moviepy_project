@@ -1,10 +1,10 @@
 from django.shortcuts import render, HttpResponse
-
-# Create your views here.
+from django.contrib.auth.decorators import login_required
 
 def video_tools(request):
   return HttpResponse('video tools page!')
 
+@login_required
 def uploads(request, type):
   return render( request, 'tools/upload.html', { 'upload_type' : type} )
 

@@ -50,17 +50,6 @@
                     <i class="fa fa-github fa-fw"></i>
                   </a>
                 </div>
-                <div class="col">
-                  <a href="#" class="fb btn">
-                    <i class="fa fa-facebook fa-fw"></i> Login with Facebook
-                  </a>
-                  <a href="#" class="twitter btn">
-                    <i class="fa fa-twitter fa-fw"></i> Login with Twitter
-                  </a>
-                  <a href="#" class="google btn">
-                    <i class="fa fa-google fa-fw"></i> Login with Google+
-                  </a>
-                </div>
                 <div class="division">
                   <div class="line l"></div>
                   <span>or</span>
@@ -71,8 +60,6 @@
                   <form method="post" action="{% url 'account_login' %}" accept-charset="UTF-8" id="login_form">
                     {% csrf_token %}
                     {{ form|crispy }}
-                    <!-- <input id="email" class="form-control" type="text" placeholder="Email" name="email"> -->
-                    <!-- <input id="password" class="form-control" type="password" placeholder="Password" name="password"> -->
                     <input class="btn btn-default btn-login" type="submit" value="Login">
                   </form>
                 </div>
