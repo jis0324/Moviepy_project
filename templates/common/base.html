@@ -14,7 +14,7 @@
   <!-- load global stylesheets-->
   {% include "common/global_css.html" %}
 
-
+  {% block custom_css %}{% endblock %}
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
@@ -113,6 +113,8 @@
 
 <!-- load global js-->
 {% include "common/global_js.html" %}
+
+{% block custom_js %}{% endblock %}
 
 <!-- page level scripts -->
 {% block page_level_scripts %}
