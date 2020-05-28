@@ -8,6 +8,6 @@ def speech_upload(request):
 def upload_audio(request):
   if request.method == "POST":
     print(request.POST)
-    myfile = request.FILES
+    myfile = request.FILES['file']
     print(myfile)
     return HttpResponse('success')

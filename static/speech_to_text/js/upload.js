@@ -40,23 +40,25 @@ $(document).ready(function () {
       // form submit
       var post_url = $('#upload_form').attr("action"); //get form action url
       var request_method = $('#upload_form').attr("method"); //get form GET/POST method
-      var form_data = $('#upload_form').serialize(); //Encode form elements for submission
-      console.log($('#upload_form input[type="file"]').val());
+      var formData = new FormData();
+      formData.append('csrfmiddlewaretoken', $('#upload_form input[name="csrfmiddlewaretoken"]').val());
+      formData.append('file', $('#upload_form input[type="file"]')[0].files[0]);
       
       $.ajax({
-        url : post_url,
-        type: request_method,
-        data : form_data,
-      }).done(function(response){ //
-        alert('end forom submit!')
+          url: post_url,
+          type: request_method,
+          data: formData,
+          cache: false,
+          contentType: false,
+          processData: false,
+          success: function() { 
+            $('#upload_form .loading-div .mainBar-animate').one(animationEvent, function(event) {
+              $('#upload_form .loading-div .mainBar-animate').css('max-width', '100%');
+            });
+          },
       });
-
-      $('#upload_form .loading-div .mainBar-animate').one(animationEvent,
-              function(event) {
-                // Do something when the transition ends
-                // alert('animation end!');
-                $('#upload_form .loading-div .mainBar-animate').css('max-width', '100%');
-              });
+      
+      
     }
   });
 
