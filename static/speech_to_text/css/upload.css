@@ -25,6 +25,10 @@
   cursor: pointer;
 }
 
+#upload_form label {
+	display: none;
+}
+
 #upload_form button {
   margin: 0;
   color: #556d3a;
@@ -53,75 +57,64 @@
   width: 100%;
 }
 
-.loading-div {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	justify-content: center;
-	align-items: center;
-	display: flex;
-  height: 170px;
-}
-
-
-.loading-div .mainDiv{
-	width: 100%;
+.loading-section {
+  position: absolute;
+  width: 100%;
   height: 100%;
-  padding: 40px;
-	background: rgba(0,0,0,0.2);
-	border-radius: 20px;
-	box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  z-index: 999;
 }
 
-.loading-div .innerDiv{
-	text-align: center;
+.loading{
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  height: 40px;
+  width: 40px;
+  transform: translate(-50%, -50%) rotate(45deg) translate3d(0,0,0);
+  animation: animate 1.2s ease-in-out infinite;
 }
-
-.loading-div h2{
-  text-transform: uppercase;
-  margin-bottom: 20px;
-	color: #fff;
-	font-family: sans-serif;
+@keyframes animate {
+  0%, 10%, 100%{
+    height: 40px;
+    width: 40px;
+  }
+  65%{
+    height: 70px;
+    width: 70px;
+  }
 }
-
-.loading-div .bar{
-	width: 100%;
-	padding: 4px;
-	border: 2px solid #fff;
-	border-radius: 20px;
-	/* transform: translateX(8%); */
-	overflow: hidden;
+.loading span{
+  position: absolute;
+  display: block;
+  width: 20px;
+  height: 20px;
+  animation: rotate 1.2s linear both infinite;
 }
-
-.loading-div .mainBar{
-	width: 100%;
-	max-width: 0;
-	height: 20px;
-	background: #fff;
-	border-radius: 10px;
+@keyframes rotate {
+  0%, 30%{
+    transform: rotate(0);
+  }
+  65%{
+    transform: rotate(-40deg);
+  }
 }
-
-.loading-div .mainBar-animate{
-  animation: animate 2s 2s 1;
+.loading span:nth-child(1){
+  top: 0;
+  left: 0;
+  background: #1ac9ff;
 }
-@keyframes animate{
-	0%{
-		max-width: 0%;
-	}
-
-	20%{
-		max-width: 20%;
-	}
-
-	90%{
-		max-width: 50%;
-	}
-
-	93%{
-		max-width: 80%;
-	}
-
-	100%{
-		max-width: 100%;
-	}
+.loading span:nth-child(2){
+  top: 0;
+  right: 0;
+  background: #fcb603;
+}
+.loading span:nth-child(3){
+  bottom: 0;
+  left: 0;
+  background: #af49b6;
+}
+.loading span:nth-child(4){
+  bottom: 0;
+  right: 0;
+  background: #e03870;
 }

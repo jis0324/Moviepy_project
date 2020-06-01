@@ -18,6 +18,17 @@
     </div>
   </section>
 
+  <!-- loading -->
+  <section class="loading-section hide">
+    <div class="loading">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </section>
+  
+
   <!-- upload -->
   <section class="w3l-pricing-7" id="upload_section">
     <div class="w3l-pricing-7_sur py-5">
@@ -31,25 +42,11 @@
             <div class="w3l-pricing-7-bottom-bottom">
               <p class="title-sub mt-4 text-left" style="margin: 0; font-size: bold;">SELECT FROM YOUR COMPUTER:</p>
             </div>
-            <form id="upload_form" action="upload/" method="POST" style="margin-top: 1.5rem;" enctype="multipart/form-data">
+            <form id="upload_form" action="" method="POST" style="margin-top: 1.5rem;" enctype="multipart/form-data">
               {% csrf_token %}
-              <input type="file" name='file'>
+              {{ form.as_table }}
               <p>Drag your Video/Audio here or click in this area.</p>
-              <!-- <button type="submit">Upload</button> -->
-              <!-- loading -->
-              <div class="hide loading-div ">
-                <div class="mainDiv">
-                  <div class="innerDiv">
-                    <h2>UPLOADING.....</h2>
-                    <div class="bar">
-                      <div class="mainBar"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </form>
-            
-              
           </div>
           <div class="col-lg-4 col-md-6 mt-lg-0 mt-4 w3l-pricing-7-gd-left">
             <div class="pric-7-2">
