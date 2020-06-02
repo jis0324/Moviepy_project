@@ -44,7 +44,7 @@
             </div>
             <form id="upload_form" action="" method="POST" style="margin-top: 1.5rem;" enctype="multipart/form-data">
               {% csrf_token %}
-              {{ form.as_table }}
+              <input type="file" name="file">
               <p>Drag your Video/Audio here or click in this area.</p>
             </form>
           </div>
