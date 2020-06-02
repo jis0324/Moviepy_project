@@ -6,10 +6,13 @@ from users.models import CustomUser
 class Upload(models.Model):
     filename = models.CharField(max_length=100)
     uploaded_name = models.CharField(max_length=100)
-    file_type = models.CharField(max_length=10)
-    file_size = models.CharField(max_length=10)
-    file_time = models.CharField(max_length=10)
-    uploaded_on = models.DateTimeField(auto_now_add=True)
+    file_type = models.CharField(max_length=100)
+    file_size = models.CharField(max_length=100)
+    file_time = models.CharField(max_length=100)
+    status = models.CharField(max_length=20, null=True, blank=True)
+    result = models.TextField(null=True, blank=True)
+    uploaded_on = models.CharField(max_length=100)
+    resulted_on = models.CharField(max_length=100, null=True, blank=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
