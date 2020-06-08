@@ -10,6 +10,7 @@ class Upload(models.Model):
     file_size = models.CharField(max_length=100)
     file_time = models.CharField(max_length=100)
     status = models.CharField(max_length=20, null=True, blank=True)
+    lang = models.CharField(max_length=100)
     result = models.TextField(null=True, blank=True)
     uploaded_on = models.CharField(max_length=100)
     resulted_on = models.CharField(max_length=100, null=True, blank=True)

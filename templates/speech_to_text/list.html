@@ -22,9 +22,9 @@
   <section class="w3l-pricing-7" id="upload_section" >
     <div class="w3l-pricing-7_sur py-5">
       <div class="container py-md-3">
-        <div class="heading text-center mx-auto">
-          <h3 class="head">Upload audio/video files</h3>
-          <p class="my-3 head"></p>
+        <div class="heading text-center mx-auto d-flex justify-content-between align-items-center">
+          <h3 class="head">Your Lists</h3>
+          <a href="/speech-to-text/upload/" class="btn btn-primary"><i class="fa fa-upload mr-3"></i>upload</a>
         </div>
         <div class="row w3l-pricing-7-gd-top pt-3 mt-5">
           <table id="list" class="table table-hover">
@@ -35,28 +35,35 @@
                 <td>Status</td>
                 <td>Size</td>
                 <td>Time</td>
+                <td>Date</td>
               </tr>
             </thead>
             <tbody>
               {% for list in lists %}
                 <tr>
-                  <td></td>
-                  <td>{{ list.filename }}</td>
+                  <td>{{ forloop.counter }}</td>
+                  <td><a href="/speech-to-text/list/{{list.id}}">{{ list.filename }}</a></td>
                   <td>
-                    {% if list.status == "uploaded" %}
-                      transcibing
-                    {% elif list.status == "transcribed" %}
-                      transcribed
-                    {% elif list.status == "failed" %}
-                      failed
+                    {% if list.status == "Uploaded" %}
+                    <span class="badge badge-warning p-2" style="width: 120px;">
+                      <div class="spinner-border text-light mr-2" role="status" style="width: 1rem; height: 1rem;">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                      Transcibing...
+                    </span>
+                    {% elif list.status == "Transcribed" %}
+                      <span class="badge badge-success p-2" style="width: 120px;">Transcribed</span>
+                    {% elif list.status == "Failed" %}
+                      <span class="badge badge-danger">Failed</span>
                     {% elif list.status == "aborted" %}
                       aborted
                     {% else %}
-                      Error
+                      <span class="badge badge-danger">Error</span>
                     {% endif %}
                   </td>
                   <td>{{ list.file_size }}</td>
                   <td>{{ list.file_time }}</td>
+                  <td>{{ list.uploaded_on }}</td>
                 </tr>
               {% endfor%}
             </tbody>
@@ -90,26 +97,6 @@
     <button onclick="topFunction()" id="movetop" title="Go to top">
       <span class="fa fa-angle-up"></span>
     </button>
-    <script>
-      // When the user scrolls down 20px from the top of the document, show the button
-      window.onscroll = function () {
-        scrollFunction()
-      };
-
-      function scrollFunction() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-          document.getElementById("movetop").style.display = "block";
-        } else {
-          document.getElementById("movetop").style.display = "none";
-        }
-      }
-
-      // When the user clicks on the button, scroll to the top of the document
-      function topFunction() {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-      }
-    </script>
     <!-- /move top -->
   </section>
 
