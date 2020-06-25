@@ -6,6 +6,7 @@ from users.models import CustomUser
 class Upload(models.Model):
     filename = models.CharField(max_length=100)
     uploaded_name = models.CharField(max_length=100)
+    uploaded_type = models.CharField(max_length=100)
     file_type = models.CharField(max_length=100)
     file_size = models.CharField(max_length=100)
     file_time = models.CharField(max_length=100)

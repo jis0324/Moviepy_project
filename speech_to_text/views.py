@@ -11,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Upload
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
+import youtube_dl
+
 # speech to text import
 import speech_recognition as sr
 from tqdm import tqdm
@@ -130,7 +132,11 @@ def transcribe(file_name, username, id, file_type):
 @login_required
 def speech_upload(request):
   if request.method == "POST":
-    try:
+    full_file_name = ''
+    # try:
+    upload_type = request.POST['type']
+
+    if upload_type == 'file':
       lang = request.POST['lang']
       uploaded_file = request.FILES['file']
       file_extension = uploaded_file.name.split('.')[-1]
@@ -148,7 +154,8 @@ def speech_upload(request):
       
       location = settings.MEDIA_ROOT + '/speech-to-text/' + request.user.username + '/'
       file_name = str(datetime.now().year) + defalt_format(str(datetime.now().month)) + defalt_format(str(datetime.now().day)) + defalt_format(str(datetime.now().hour)) + defalt_format(str(datetime.now().minute)) + defalt_format(str(datetime.now().second)) + '-' + re.sub(r'\s', '-', uploaded_file.name.strip())
-      
+      full_file_name = location + file_name
+
       if not os.path.exists(location):
         os.makedirs(location)
       
@@ -178,19 +185,77 @@ def speech_upload(request):
         formated_play_time = "Unkown"
 
       uploaded_date = str(datetime.now().year) + '-' + defalt_format(str(datetime.now().month)) + '-' + defalt_format(str(datetime.now().day))
-      upload_data = Upload( filename = uploaded_file.name, uploaded_name = file_name, file_type = file_type, file_size = file_size, file_time = formated_play_time, uploaded_on = uploaded_date, status = 'Uploaded', lang=lang, user = request.user)
+      upload_data = Upload( filename = uploaded_file.name, uploaded_name = file_name, uploaded_type = 'file', file_type = file_type, file_size = file_size, file_time = formated_play_time, uploaded_on = uploaded_date, status = 'Uploaded', lang=lang, user = request.user)
       upload_data.save()
 
       # transcribing thread
       x = threading.Thread(target=transcribe, args=( location + file_name, request.user.username, upload_data.id, file_type))
       x.start()
       return HttpResponse('success')
-    except Exception as err:
-      print(err)
-      file_exist = os.path.isfile(location + file_name)
-      if file_exist:
-        os.remove(location + file_name)
-      return HttpResponse('error')
+  
+    elif upload_type == 'youtube':
+      youtube_url = request.POST['youtube_video_url']
+      if youtube_url:
+        lang = 'en'
+        location = settings.MEDIA_ROOT + '/speech-to-text/' + request.user.username + '/'
+        file_name = str(datetime.now().year) + defalt_format(str(datetime.now().month)) + defalt_format(str(datetime.now().day)) + defalt_format(str(datetime.now().hour)) + defalt_format(str(datetime.now().minute)) + defalt_format(str(datetime.now().second)) + '-' + 'youtube'
+        full_file_name = location + file_name + '.mp3'
+        
+        if not os.path.exists(location):
+          os.makedirs(location)
+
+        ydl_opts = {
+          'format': 'bestaudio/best',
+          'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+          }],
+          'outtmpl': '{}.%(ext)s'.format(location + file_name),
+        }
+
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([youtube_url])
+        
+        file_size = os.stat(location + file_name + '.mp3').st_size
+
+        if file_size > 1000000000:
+          file_size = "{:,.2f} GB".format(float(file_size / 1000000000))
+        elif file_size > 1000000:
+          file_size = "{:,.2f} MB".format(float(file_size / 1000000))
+        elif file_size > 1000:
+          file_size = "{:,.2f} KB".format(float(file_size / 1000))
+        elif file_size > 0:
+          file_size = "{:,.2f} B".format(float(file_size))
+        else:
+          file_size = 'Unkown'
+
+        file_play_time = librosa.get_duration(filename=location + file_name + '.mp3')
+        if file_play_time > 3600:
+          formated_play_time = time.strftime('%Hh %Mm %Ss', time.gmtime(file_play_time))
+        elif file_play_time > 60:
+          formated_play_time = time.strftime('%Mm %Ss', time.gmtime(file_play_time))
+        elif file_play_time > 0:
+          formated_play_time = time.strftime('%Ss', time.gmtime(file_play_time))
+        else:
+          formated_play_time = "Unkown"
+
+        uploaded_date = str(datetime.now().year) + '-' + defalt_format(str(datetime.now().month)) + '-' + defalt_format(str(datetime.now().day))
+        upload_data = Upload( filename = youtube_url, uploaded_name = file_name + '.mp3', uploaded_type = 'youtube', file_type = 'mp3', file_size = file_size, file_time = formated_play_time, uploaded_on = uploaded_date, status = 'Uploaded', lang=lang, user = request.user)
+        upload_data.save()
+
+        # transcribing thread
+        x = threading.Thread(target=transcribe, args=( location + file_name + '.mp3', request.user.username, upload_data.id, 'mp3'))
+        x.start()
+        return HttpResponse('success')
+      return HttpResponse('failed')
+
+    # except Exception as err:
+    #   print(err)
+    #   file_exist = os.path.isfile(full_file_name)
+    #   if file_exist:
+    #     os.remove(full_file_name)
+    #   return HttpResponse('error')
   return render(request, 'speech_to_text/upload.html', { 'page' : 'service' })
 
 def lists(request):

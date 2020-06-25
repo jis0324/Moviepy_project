@@ -40,9 +40,11 @@ $(document).ready(function () {
       // form submit
       var post_url = $('#upload_form').attr("action"); //get form action url
       var request_method = $('#upload_form').attr("method"); //get form GET/POST method
+
       var formData = new FormData();
       formData.append('csrfmiddlewaretoken', $('#upload_form input[name="csrfmiddlewaretoken"]').val());
       formData.append('file', $('#upload_form input[type="file"]')[0].files[0]);
+      formData.append('type', 'file');
       formData.append('lang', 'en');
       // formData.append('lang', $(".country-sel-wrapper .dropdown dt a span").html());
       
@@ -76,6 +78,43 @@ $(document).ready(function () {
         },
       });
     }
+  });
+
+  $('#youtube_form').submit(function () {
+    event.preventDefault();
+    $('.loading-section').removeClass('hide');
+    $('#upload_section').css('opacity', .5);
+    $('#youtubeModal').modal('hide');
+    // form submit
+    var post_url = $('#youtube_form').attr("action"); //get form action url
+    var request_method = $('#youtube_form').attr("method"); //get form GET/POST method
+
+    var formData = new FormData();
+    formData.append('csrfmiddlewaretoken', $('#youtube_form input[name="csrfmiddlewaretoken"]').val());
+    formData.append('youtube_video_url', $('#youtube_form #youtube_video_url').val());
+    formData.append('type', 'youtube');
+    formData.append('lang', 'en');
+    // formData.append('lang', $(".country-sel-wrapper .dropdown dt a span").html());
+    
+    $.ajax({
+      url: post_url,
+      type: request_method,
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(response) {
+        if (response == 'success') {
+          location.href = '/speech-to-text/list/'
+          event.preventDefault(); //prevent default action
+          return
+        } else {
+          alert('Raised Some Error! Please try again.');
+        }
+        $('.loading-section').addClass('hide');
+        $('#upload_section').css('opacity', 1);
+      },
+    });
   });
 
   $('.navbar-toggler').click(function () {

@@ -14,7 +14,7 @@
   <section class="w3l-service-breadcrum">
     <div class="breadcrum-bg">
       <div class="container py-5">
-        <p><a href="/">Home</a> &nbsp; / &nbsp; Speech To Text &nbsp; / &nbsp; Upload</p>
+        <p class="mw-100"><a href="/">Home</a> &nbsp; / &nbsp; Speech To Text &nbsp; / &nbsp; Upload</p>
       </div>
     </div>
   </section>
@@ -303,6 +303,7 @@
             <form id="upload_form" action="" method="POST" style="margin-top: 1.5rem;" enctype="multipart/form-data">
               {% csrf_token %}
               <input type="file" name="file">
+              <input type="hidden" name="type" value="file">
               <p>Drag your Video/Audio here or click in this area.</p>
             </form>
           </div>
@@ -312,17 +313,19 @@
                 <p class="title-sub mt-4 text-left" style="margin: 0; font-size: bold;">OR SELECT FROM :</p>
               </div>
               <div class="buy-button text-center mt-4">
-                <button href="contact.html" class="btn btn-info btn-custom">
-                  <div class="anim"></div><span>YOUTUBE</span>
-                </button>
+                <div class="buy-button text-center mt-4">
+                  <button class="btn btn-info w-100 btn-custom" data-toggle="modal" data-target="#youtubeModal">
+                    <div class="anim"></div><span>YOUTUBE</span>
+                  </button>
+                </div>
               </div>
               <div class="buy-button text-center mt-4">
-                <button href="contact.html" class="btn btn-info btn-custom">
+                <button class="btn btn-info btn-custom">
                   <div class="anim"></div><span>GOOGLE DRIVER</span>
                 </button>
               </div>
               <div class="buy-button text-center mt-4">
-                <button href="contact.html" class="btn btn-info btn-custom">
+                <button class="btn btn-info btn-custom">
                   <div class="anim"></div><span>DROPBOX</span>
                 </button>
               </div>
@@ -359,6 +362,40 @@
     </button>
     <!-- /move top -->
   </section>
+
+  <!-- modal -->
+  <!-- The Modal -->
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"  id="youtubeModal">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title text-center mx-auto">UPLOAD & TRANSCRIBE YOUTUBE VIDEO (BETA)</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form method="POST" action="" enctype="multipart/form-data" accept-charset="UTF-8" id="youtube_form">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="youtube_video_url">YouTube video URL : </label>
+              <input type="text" class="form-control" id="youtube_video_url" name="youtube_video_url" required>
+            </div>
+            <button type="submit" class="btn btn-primary mx-auto w-50 d-table">Submit</button>
+          </form>
+        </div>
+        
+        <!-- Modal footer -->
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div> -->
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- grids block 5 -->
 
 {% endblock %}
 
