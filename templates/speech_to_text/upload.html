@@ -302,7 +302,7 @@
             </div>
             <form id="upload_form" action="" method="POST" style="margin-top: 1.5rem;" enctype="multipart/form-data">
               {% csrf_token %}
-              <input type="file" name="file">
+              <input type="file" name="file" accept="audio/*, video/*">
               <input type="hidden" name="type" value="file">
               <p>Drag your Video/Audio here or click in this area.</p>
             </form>

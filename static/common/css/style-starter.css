@@ -10523,7 +10523,7 @@ h4.sub-title {
   .w3l-feature-3 span.number img {
     vertical-align: -webkit-baseline-middle; }
   .w3l-feature-3 .top-bottom {
-    background: url(../images/3.jpg) no-repeat center;
+    background: url(../images/m3.jpg) no-repeat center;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -10966,7 +10966,7 @@ body:after {
     font-size: 12px; } }
 
 .services-12 .form-12-content {
-  background: url("../images/2.jpg") no-repeat center;
+  background: url("../images/m2.jpg") no-repeat center;
   background-size: cover;
   padding: 5rem 0px;
   background-attachment: fixed;
@@ -12102,7 +12102,7 @@ body:after {
 
 .w3l-about-breadcrum .breadcrum-bg {
   background-size: cover;
-  background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(../images/2.jpg);
+  background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(../images/m2.jpg);
   background-repeat: no-repeat, no-repeat, no-repeat;
   background-position: center;
   padding-top: 86px; }
