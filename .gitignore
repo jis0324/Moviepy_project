@@ -1,7 +1,4 @@
 /venv/
-/media/
+/media
 /speech_to_text/migrations
 s_to_t_secret.json
-*.json
-/s_to_t_secret.json
-./s_to_t_secret.json
